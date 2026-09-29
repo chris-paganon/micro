@@ -38,18 +38,14 @@ rules:
     - symbol.tag:
         start: "</?[A-Za-z][A-Za-z0-9_.:-]*"
         end: "/?>"
+        # don't end on a `>` inside quotes like <div data-content="a<b>c">
+        skip: "\"([^\"\\\\]|\\\\.)*\"|'([^'\\\\]|\\\\.)*'"
         rules:
             - identifier: "[A-Za-z_][A-Za-z0-9_.:@#\\[\\]-]*"
             - special: "\\bv-[A-Za-z][A-Za-z0-9-]*\\b"
             - special: "[@:#][A-Za-z_][A-Za-z0-9_-]*(\\.[A-Za-z_][A-Za-z0-9_-]*)*"
             - symbol: "="
-            - constant.string:
-                start: '"'
-                end: '"'
-                rules: []
-            - constant.string:
-                start: "'"
-                end: "'"
-                rules: []
+            - constant.string: '"([^"\\]|\\.)*"'
+            - constant.string: "'([^'\\\\]|\\\\.)*'"
 
     - special: "&([A-Za-z][A-Za-z0-9]*|#[0-9]+|#[xX][0-9a-fA-F]+);"
