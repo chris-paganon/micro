@@ -17,7 +17,7 @@ rules:
             - include: "javascript"
 
     - default:
-        start: "<style.*>$"
+        start: "<style[^>]*>"
         end: "</style>"
         rules:
             - include: "css"
