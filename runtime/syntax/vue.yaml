@@ -5,7 +5,7 @@ detect:
 
 rules:
     - default:
-        start: "<script.* lang=['\"]ts['\"].*>$"
+        start: "<script.* lang=(ts|'ts'|\"ts\").*>$"
         end: "</script>"
         rules:
             - include: "typescript"
