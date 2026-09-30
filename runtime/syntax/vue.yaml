@@ -34,6 +34,7 @@ rules:
         rules:
             - include: "javascript"
 
+    # Match any html or vue component closing tag
     - symbol.tag: "</[A-Za-z][A-Za-z0-9_.:-]*[ \\t]*>"
 
     # A region allows attributes on later lines and arbitrary component names.
@@ -43,12 +44,14 @@ rules:
         # don't end on a `>` inside quotes like <div data-content="a<b>c">
         skip: "\"([^\"\\\\]|\\\\.)*\"|'([^'\\\\]|\\\\.)*'"
         rules:
+            # non-vue attributes
             - identifier: "[A-Za-z_][A-Za-z0-9_.:@#\\[\\]-]*"
-            # Leave custom v-* attributes as identifiers so typos stand out.
+            # built-in vue directives, including v-on:click.stop.prevent, v-slot:header, etc
             - special: '(^|[ \t])v-(else-if|text|html|show|if|else|for|on|bind|model|slot|pre|once|memo|cloak)(:[A-Za-z_][A-Za-z0-9_-]*)?(\.[A-Za-z_][A-Za-z0-9_-]*)*\b'
-            - special: '(^|[ \t])v-(on|bind|model|slot):\[[^ \t]+\](\.[A-Za-z_][A-Za-z0-9_-]*)*'
-            - special: '(^|[ \t])[@:#]([A-Za-z_][A-Za-z0-9_-]*|\[[^ \t]+\])(\.[A-Za-z_][A-Za-z0-9_-]*)*'
+            # vue directives with shorthand like @click.once, :class, etc
+            - special: '(^|[ \t])[@:#][A-Za-z_][A-Za-z0-9_-]*(\.[A-Za-z_][A-Za-z0-9_-]*)*\b'
             - symbol: "="
+            # attributes string content
             - constant.string: '"([^"\\]|\\.)*"'
             - constant.string: "'([^'\\\\]|\\\\.)*'"
 
