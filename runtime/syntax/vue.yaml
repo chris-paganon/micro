@@ -34,9 +34,11 @@ rules:
         rules:
             - include: "javascript"
 
+    - symbol.tag: "</[A-Za-z][A-Za-z0-9_.:-]*[ \\t]*>"
+
     # A region allows attributes on later lines and arbitrary component names.
     - symbol.tag:
-        start: "</?[A-Za-z][A-Za-z0-9_.:-]*"
+        start: "<[A-Za-z][A-Za-z0-9_.:-]*"
         end: "/?>"
         # don't end on a `>` inside quotes like <div data-content="a<b>c">
         skip: "\"([^\"\\\\]|\\\\.)*\"|'([^'\\\\]|\\\\.)*'"
