@@ -44,8 +44,10 @@ rules:
         skip: "\"([^\"\\\\]|\\\\.)*\"|'([^'\\\\]|\\\\.)*'"
         rules:
             - identifier: "[A-Za-z_][A-Za-z0-9_.:@#\\[\\]-]*"
-            - special: "\\bv-[A-Za-z][A-Za-z0-9-]*\\b"
-            - special: "[@:#][A-Za-z_][A-Za-z0-9_-]*(\\.[A-Za-z_][A-Za-z0-9_-]*)*"
+            # Leave custom v-* attributes as identifiers so typos stand out.
+            - special: '(^|[ \t])v-(else-if|text|html|show|if|else|for|on|bind|model|slot|pre|once|memo|cloak)(:[A-Za-z_][A-Za-z0-9_-]*)?(\.[A-Za-z_][A-Za-z0-9_-]*)*\b'
+            - special: '(^|[ \t])v-(on|bind|model|slot):\[[^ \t]+\](\.[A-Za-z_][A-Za-z0-9_-]*)*'
+            - special: '(^|[ \t])[@:#]([A-Za-z_][A-Za-z0-9_-]*|\[[^ \t]+\])(\.[A-Za-z_][A-Za-z0-9_-]*)*'
             - symbol: "="
             - constant.string: '"([^"\\]|\\.)*"'
             - constant.string: "'([^'\\\\]|\\\\.)*'"
