@@ -41,8 +41,9 @@ rules:
     - symbol.tag:
         start: "<[A-Za-z][A-Za-z0-9_.:-]*"
         end: "/?>"
-        # don't end on a `>` inside quotes like <div data-content="a<b>c">
-        skip: "\"([^\"\\\\]|\\\\.)*\"|'([^'\\\\]|\\\\.)*'"
+        # Skip quoted attribute values so `>` inside them does not end the tag region.
+        skip: >-
+            "[^"]*"|'[^']*'
         rules:
             # non-vue attributes
             - identifier: "[A-Za-z_][A-Za-z0-9_.:@#\\[\\]-]*"
